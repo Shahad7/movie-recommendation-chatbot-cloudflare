@@ -158,6 +158,13 @@ export default {
     if (agentResponse) { 
       return agentResponse;
     }
+
+    // 2. If it's NOT an agent request, serve your React frontend!
+    // (This requires the "assets" binding in your wrangler.jsonc)
+    if (env.ASSETS) {
+      return env.ASSETS.fetch(request);
+    }
+    
     return new Response("Not found", { status: 404 });
   }
 } satisfies ExportedHandler<Env>;
